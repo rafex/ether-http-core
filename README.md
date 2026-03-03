@@ -7,6 +7,7 @@ Reusable HTTP contracts and primitives for Ether.
 - Transport-agnostic contracts (`HttpExchange`, `HttpResource`)
 - Routing model (`Route`, `RouteMatcher`)
 - Error mapping contracts (`HttpError`, `ErrorMapper`)
+- Domain-to-HTTP error mapping primitives (`DomainErrorMapper`, `CodeBasedDomainErrorMapper`)
 - Generic auth/middleware contracts
 - Query language support (`QuerySpec`, `RSQL parser`)
 

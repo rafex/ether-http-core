@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-cd ether-jwt
+cd ether-http-core
 # Update source and POM with license headers
 mvn -q license:update-file-header license:update-project-license
 

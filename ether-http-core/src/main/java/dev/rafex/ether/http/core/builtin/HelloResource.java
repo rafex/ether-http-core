@@ -1,4 +1,4 @@
-package dev.rafex.ether.http.core.query;
+package dev.rafex.ether.http.core.builtin;
 
 /*-
  * #%L
@@ -12,10 +12,10 @@ package dev.rafex.ether.http.core.query;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,14 +26,24 @@ package dev.rafex.ether.http.core.query;
  * #L%
  */
 
-import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-public record QuerySpec(RsqlNode filter, int limit, int offset, List<Sort> sorts) {
+import dev.rafex.ether.http.core.HttpExchange;
+import dev.rafex.ether.http.core.HttpResource;
 
-    public static final int DEFAULT_LIMIT = 20;
-    public static final int DEFAULT_OFFSET = 0;
+public final class HelloResource implements HttpResource {
 
-    public QuerySpec {
-        sorts = sorts == null ? List.of() : List.copyOf(sorts);
+    public static final String DEFAULT_PATH = "/hello";
+
+    @Override
+    public boolean get(final HttpExchange x) {
+        x.json(200, Map.of("message", "hello", "service", "ether"));
+        return true;
+    }
+
+    @Override
+    public Set<String> supportedMethods() {
+        return Set.of("GET");
     }
 }

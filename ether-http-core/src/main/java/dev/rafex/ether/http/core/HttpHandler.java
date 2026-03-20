@@ -29,5 +29,5 @@ package dev.rafex.ether.http.core;
 @FunctionalInterface
 public interface HttpHandler {
 
-	boolean handle(HttpExchange exchange) throws Exception;
+    boolean handle(HttpExchange exchange) throws Exception;
 }

@@ -30,37 +30,37 @@ import java.util.Set;
 
 public interface HttpResource {
 
-	default boolean get(final HttpExchange x) throws Exception {
-		x.methodNotAllowed();
-		return true;
-	}
+    default boolean get(final HttpExchange x) throws Exception {
+        x.methodNotAllowed();
+        return true;
+    }
 
-	default boolean post(final HttpExchange x) throws Exception {
-		x.methodNotAllowed();
-		return true;
-	}
+    default boolean post(final HttpExchange x) throws Exception {
+        x.methodNotAllowed();
+        return true;
+    }
 
-	default boolean put(final HttpExchange x) throws Exception {
-		x.methodNotAllowed();
-		return true;
-	}
+    default boolean put(final HttpExchange x) throws Exception {
+        x.methodNotAllowed();
+        return true;
+    }
 
-	default boolean delete(final HttpExchange x) throws Exception {
-		x.methodNotAllowed();
-		return true;
-	}
+    default boolean delete(final HttpExchange x) throws Exception {
+        x.methodNotAllowed();
+        return true;
+    }
 
-	default boolean patch(final HttpExchange x) throws Exception {
-		x.methodNotAllowed();
-		return true;
-	}
+    default boolean patch(final HttpExchange x) throws Exception {
+        x.methodNotAllowed();
+        return true;
+    }
 
-	default boolean options(final HttpExchange x) throws Exception {
-		x.options();
-		return true;
-	}
+    default boolean options(final HttpExchange x) throws Exception {
+        x.options();
+        return true;
+    }
 
-	default Set<String> supportedMethods() {
-		return Set.of();
-	}
+    default Set<String> supportedMethods() {
+        return Set.of();
+    }
 }

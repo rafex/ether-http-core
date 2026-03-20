@@ -27,9 +27,5 @@ package dev.rafex.ether.http.core.query;
  */
 
 public enum RsqlOperator {
-	EQ,
-	NEQ,
-	IN,
-	OUT,
-	LIKE
+    EQ, NEQ, IN, OUT, LIKE
 }

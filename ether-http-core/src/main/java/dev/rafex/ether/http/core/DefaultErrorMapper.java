@@ -28,18 +28,18 @@ package dev.rafex.ether.http.core;
 
 public final class DefaultErrorMapper implements ErrorMapper {
 
-	@Override
-	public HttpError map(final Throwable error) {
-		if (error instanceof IllegalArgumentException) {
-			return new HttpError(400, "bad_request", safeMessage(error.getMessage(), "bad request"));
-		}
-		return new HttpError(500, "internal_error", "internal error");
-	}
+    @Override
+    public HttpError map(final Throwable error) {
+        if (error instanceof IllegalArgumentException) {
+            return new HttpError(400, "bad_request", safeMessage(error.getMessage(), "bad request"));
+        }
+        return new HttpError(500, "internal_error", "internal error");
+    }
 
-	private static String safeMessage(final String message, final String fallback) {
-		if (message == null || message.isBlank()) {
-			return fallback;
-		}
-		return message;
-	}
+    private static String safeMessage(final String message, final String fallback) {
+        if (message == null || message.isBlank()) {
+            return fallback;
+        }
+        return message;
+    }
 }

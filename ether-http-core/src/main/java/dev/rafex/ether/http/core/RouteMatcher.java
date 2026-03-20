@@ -31,19 +31,19 @@ import java.util.Optional;
 
 public final class RouteMatcher {
 
-	private RouteMatcher() {
-	}
+    private RouteMatcher() {
+    }
 
-	public static Optional<RouteMatch> match(final String relPath, final List<Route> routes) {
-		if (routes == null || routes.isEmpty()) {
-			return Optional.empty();
-		}
-		for (final var route : routes) {
-			final var match = route.match(relPath);
-			if (match.isPresent()) {
-				return Optional.of(new RouteMatch(route, match.get()));
-			}
-		}
-		return Optional.empty();
-	}
+    public static Optional<RouteMatch> match(final String relPath, final List<Route> routes) {
+        if (routes == null || routes.isEmpty()) {
+            return Optional.empty();
+        }
+        for (final var route : routes) {
+            final var match = route.match(relPath);
+            if (match.isPresent()) {
+                return Optional.of(new RouteMatch(route, match.get()));
+            }
+        }
+        return Optional.empty();
+    }
 }

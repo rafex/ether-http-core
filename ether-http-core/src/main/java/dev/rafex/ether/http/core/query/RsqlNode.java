@@ -30,12 +30,12 @@ import java.util.List;
 
 public sealed interface RsqlNode permits RsqlNode.And, RsqlNode.Or, RsqlNode.Comp {
 
-	record And(List<RsqlNode> nodes) implements RsqlNode {
-	}
+    record And(List<RsqlNode> nodes) implements RsqlNode {
+    }
 
-	record Or(List<RsqlNode> nodes) implements RsqlNode {
-	}
+    record Or(List<RsqlNode> nodes) implements RsqlNode {
+    }
 
-	record Comp(String selector, RsqlOperator operator, List<String> args) implements RsqlNode {
-	}
+    record Comp(String selector, RsqlOperator operator, List<String> args) implements RsqlNode {
+    }
 }

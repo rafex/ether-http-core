@@ -32,33 +32,33 @@ import java.util.Set;
 
 public interface HttpExchange {
 
-	String method();
+    String method();
 
-	String path();
+    String path();
 
-	String pathParam(String name);
+    String pathParam(String name);
 
-	String queryFirst(String name);
+    String queryFirst(String name);
 
-	List<String> queryAll(String name);
+    List<String> queryAll(String name);
 
-	Map<String, String> pathParams();
+    Map<String, String> pathParams();
 
-	Map<String, List<String>> queryParams();
+    Map<String, List<String>> queryParams();
 
-	Set<String> allowedMethods();
+    Set<String> allowedMethods();
 
-	void json(int status, Object body);
+    void json(int status, Object body);
 
-	void text(int status, String body);
+    void text(int status, String body);
 
-	void noContent(int status);
+    void noContent(int status);
 
-	default void methodNotAllowed() {
-		json(405, Map.of("error", "method_not_allowed"));
-	}
+    default void methodNotAllowed() {
+        json(405, Map.of("error", "method_not_allowed"));
+    }
 
-	default void options() {
-		noContent(204);
-	}
+    default void options() {
+        noContent(204);
+    }
 }

@@ -29,5 +29,5 @@ package dev.rafex.ether.http.core;
 @FunctionalInterface
 public interface Middleware {
 
-	HttpHandler wrap(HttpHandler next);
+    HttpHandler wrap(HttpHandler next);
 }

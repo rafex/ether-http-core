@@ -36,64 +36,64 @@ import java.util.Set;
 
 public record Route(String pattern, Set<String> allowedMethods) {
 
-	public Route {
-		allowedMethods = normalizeMethods(allowedMethods);
-	}
+    public Route {
+        allowedMethods = normalizeMethods(allowedMethods);
+    }
 
-	public static Route of(final String pattern, final Set<String> methods) {
-		return new Route(pattern, methods);
-	}
+    public static Route of(final String pattern, final Set<String> methods) {
+        return new Route(pattern, methods);
+    }
 
-	public boolean allows(final String method) {
-		return allowedMethods.contains(method.toUpperCase());
-	}
+    public boolean allows(final String method) {
+        return allowedMethods.contains(method.toUpperCase());
+    }
 
-	public Optional<Map<String, String>> match(final String relPath) {
-		if ("/**".equals(pattern)) {
-			return Optional.of(Map.of());
-		}
+    public Optional<Map<String, String>> match(final String relPath) {
+        if ("/**".equals(pattern)) {
+            return Optional.of(Map.of());
+        }
 
-		final var patternSegments = split(pattern);
-		final var pathSegments = split(relPath);
-		if (patternSegments.size() != pathSegments.size()) {
-			return Optional.empty();
-		}
+        final var patternSegments = split(pattern);
+        final var pathSegments = split(relPath);
+        if (patternSegments.size() != pathSegments.size()) {
+            return Optional.empty();
+        }
 
-		final var params = new LinkedHashMap<String, String>();
-		for (int i = 0; i < patternSegments.size(); i++) {
-			final var expected = patternSegments.get(i);
-			final var actual = pathSegments.get(i);
+        final var params = new LinkedHashMap<String, String>();
+        for (int i = 0; i < patternSegments.size(); i++) {
+            final var expected = patternSegments.get(i);
+            final var actual = pathSegments.get(i);
 
-			if (expected.startsWith("{") && expected.endsWith("}")) {
-				final var key = expected.substring(1, expected.length() - 1);
-				params.put(key, actual);
-				continue;
-			}
-			if (!expected.equals(actual)) {
-				return Optional.empty();
-			}
-		}
+            if (expected.startsWith("{") && expected.endsWith("}")) {
+                final var key = expected.substring(1, expected.length() - 1);
+                params.put(key, actual);
+                continue;
+            }
+            if (!expected.equals(actual)) {
+                return Optional.empty();
+            }
+        }
 
-		return Optional.of(params);
-	}
+        return Optional.of(params);
+    }
 
-	private static List<String> split(final String path) {
-		final var cleaned = path.startsWith("/") ? path.substring(1) : path;
-		if (cleaned.isEmpty()) {
-			return List.of();
-		}
-		return Arrays.asList(cleaned.split("/"));
-	}
+    private static List<String> split(final String path) {
+        final var cleaned = path.startsWith("/") ? path.substring(1) : path;
+        if (cleaned.isEmpty()) {
+            return List.of();
+        }
+        return Arrays.asList(cleaned.split("/"));
+    }
 
-	private static Set<String> normalizeMethods(final Set<String> methods) {
-		final var out = new LinkedHashSet<String>();
-		if (methods != null) {
-			for (final var method : methods) {
-				if (method != null && !method.isBlank()) {
-					out.add(method.trim().toUpperCase());
-				}
-			}
-		}
-		return Set.copyOf(out);
-	}
+    private static Set<String> normalizeMethods(final Set<String> methods) {
+        final var out = new LinkedHashSet<String>();
+        if (methods != null) {
+            for (final var method : methods) {
+                if (method != null && !method.isBlank()) {
+                    out.add(method.trim().toUpperCase());
+                }
+            }
+        }
+        return Set.copyOf(out);
+    }
 }

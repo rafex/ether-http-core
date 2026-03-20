@@ -5,6 +5,7 @@ Reusable HTTP contracts and primitives for Ether.
 ## Scope
 
 - Transport-agnostic contracts (`HttpExchange`, `HttpResource`)
+- Built-in resources (`/hello`, `/health`) reusable by transport adapters
 - Routing model (`Route`, `RouteMatcher`)
 - Error mapping contracts (`HttpError`, `ErrorMapper`)
 - Domain-to-HTTP error mapping primitives (`DomainErrorMapper`, `CodeBasedDomainErrorMapper`)

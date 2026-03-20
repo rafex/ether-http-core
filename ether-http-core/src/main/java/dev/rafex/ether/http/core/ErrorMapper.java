@@ -29,5 +29,5 @@ package dev.rafex.ether.http.core;
 @FunctionalInterface
 public interface ErrorMapper {
 
-	HttpError map(Throwable error);
+    HttpError map(Throwable error);
 }

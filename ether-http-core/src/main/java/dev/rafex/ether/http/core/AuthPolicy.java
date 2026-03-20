@@ -28,16 +28,15 @@ package dev.rafex.ether.http.core;
 
 public record AuthPolicy(Type type, String method, String pathSpec) {
 
-	public enum Type {
-		PUBLIC_PATH,
-		PROTECTED_PREFIX
-	}
+    public enum Type {
+        PUBLIC_PATH, PROTECTED_PREFIX
+    }
 
-	public static AuthPolicy publicPath(final String method, final String pathSpec) {
-		return new AuthPolicy(Type.PUBLIC_PATH, method, pathSpec);
-	}
+    public static AuthPolicy publicPath(final String method, final String pathSpec) {
+        return new AuthPolicy(Type.PUBLIC_PATH, method, pathSpec);
+    }
 
-	public static AuthPolicy protectedPrefix(final String pathSpec) {
-		return new AuthPolicy(Type.PROTECTED_PREFIX, null, pathSpec);
-	}
+    public static AuthPolicy protectedPrefix(final String pathSpec) {
+        return new AuthPolicy(Type.PROTECTED_PREFIX, null, pathSpec);
+    }
 }

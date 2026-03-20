@@ -32,58 +32,57 @@ import java.util.Objects;
 
 public final class CodeBasedDomainErrorMapper implements DomainErrorMapper {
 
-	private record Key(String operation, String code) {
-	}
+    private record Key(String operation, String code) {
+    }
 
-	private final Map<Key, HttpError> rules;
-	private final HttpError fallback;
+    private final Map<Key, HttpError> rules;
+    private final HttpError fallback;
 
-	private CodeBasedDomainErrorMapper(final Map<Key, HttpError> rules, final HttpError fallback) {
-		this.rules = Map.copyOf(rules);
-		this.fallback = fallback;
-	}
+    private CodeBasedDomainErrorMapper(final Map<Key, HttpError> rules, final HttpError fallback) {
+        this.rules = Map.copyOf(rules);
+        this.fallback = fallback;
+    }
 
-	@Override
-	public HttpError map(final String operation, final String code, final Throwable cause) {
-		final var byOperation = rules.get(new Key(normalize(operation), normalize(code)));
-		if (byOperation != null) {
-			return byOperation;
-		}
-		final var byWildcardOp = rules.get(new Key("*", normalize(code)));
-		if (byWildcardOp != null) {
-			return byWildcardOp;
-		}
-		return fallback;
-	}
+    @Override
+    public HttpError map(final String operation, final String code, final Throwable cause) {
+        final var byOperation = rules.get(new Key(normalize(operation), normalize(code)));
+        if (byOperation != null) {
+            return byOperation;
+        }
+        final var byWildcardOp = rules.get(new Key("*", normalize(code)));
+        if (byWildcardOp != null) {
+            return byWildcardOp;
+        }
+        return fallback;
+    }
 
-	public static Builder builder() {
-		return new Builder();
-	}
+    public static Builder builder() {
+        return new Builder();
+    }
 
-	private static String normalize(final String value) {
-		return value == null || value.isBlank() ? "*" : value.trim();
-	}
+    private static String normalize(final String value) {
+        return value == null || value.isBlank() ? "*" : value.trim();
+    }
 
-	public static final class Builder {
+    public static final class Builder {
 
-		private final Map<Key, HttpError> rules = new HashMap<>();
-		private HttpError fallback = new HttpError(400, "domain_error", "domain error");
+        private final Map<Key, HttpError> rules = new HashMap<>();
+        private HttpError fallback = new HttpError(400, "domain_error", "domain error");
 
-		public Builder rule(final String operation, final String code, final int status, final String error,
-				final String message) {
-			final var key = new Key(normalize(operation), normalize(code));
-			rules.put(key, new HttpError(status, error, message));
-			return this;
-		}
+        public Builder rule(final String operation, final String code, final int status, final String error,
+                final String message) {
+            final var key = new Key(normalize(operation), normalize(code));
+            rules.put(key, new HttpError(status, error, message));
+            return this;
+        }
 
-		public Builder fallback(final int status, final String error, final String message) {
-			fallback = new HttpError(status, error, message);
-			return this;
-		}
+        public Builder fallback(final int status, final String error, final String message) {
+            fallback = new HttpError(status, error, message);
+            return this;
+        }
 
-		public CodeBasedDomainErrorMapper build() {
-			return new CodeBasedDomainErrorMapper(rules, Objects.requireNonNull(fallback));
-		}
-	}
+        public CodeBasedDomainErrorMapper build() {
+            return new CodeBasedDomainErrorMapper(rules, Objects.requireNonNull(fallback));
+        }
+    }
 }
-

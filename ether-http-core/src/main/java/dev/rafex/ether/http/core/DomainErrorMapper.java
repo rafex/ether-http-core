@@ -29,6 +29,5 @@ package dev.rafex.ether.http.core;
 @FunctionalInterface
 public interface DomainErrorMapper {
 
-	HttpError map(String operation, String code, Throwable cause);
+    HttpError map(String operation, String code, Throwable cause);
 }
-

@@ -30,10 +30,12 @@ public final class DefaultErrorMapper implements ErrorMapper {
 
     @Override
     public HttpError map(final Throwable error) {
-        if (error instanceof IllegalArgumentException) {
-            return new HttpError(400, "bad_request", safeMessage(error.getMessage(), "bad request"));
-        }
-        return new HttpError(500, "internal_error", "internal error");
+        return switch (error) {
+            case IllegalArgumentException iae ->
+                new HttpError(400, "bad_request", safeMessage(iae.getMessage(), "bad request"));
+            default ->
+                new HttpError(500, "internal_error", "internal error");
+        };
     }
 
     private static String safeMessage(final String message, final String fallback) {
